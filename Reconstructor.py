@@ -1,10 +1,13 @@
 import argparse
+import time
 
 from Combiner.combiner import combiner, get_all_attachments, get_unique_attachments, parse_message_file
 from Downloader.downloader import download
 import os
 
 def reconstruct(messages1 : str, messages2 : str, output_folder: str):
+
+    timer = time.time()
 
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
@@ -18,13 +21,26 @@ def reconstruct(messages1 : str, messages2 : str, output_folder: str):
 
     os.makedirs(downloadfolder, exist_ok=True)
 
-    counter = 0
+    counter = 1
 
     print("\nDownloading attachments:")
     for att in attachments:
         try:
-            counter += 1
+
+            if int(time.time() - timer) < 600 and counter % 9500 == 0:
+                print("\n")
+                print("\n")
+                print("You have exceeded the download limit of Discord.")
+                print(
+                    "The program will automatically halt for 10 minutes, and resume once the limit is reset. Please be patient.")
+                time.sleep(600)
+                print("\n")
+                print("\n")
+            if int(time.time() - timer) > 600:
+                timer = time.time()
+
             download(att, counter, downloadfolder)
+            counter += 1
         except Exception as e:
             print(f"Download failed: {e}")
 

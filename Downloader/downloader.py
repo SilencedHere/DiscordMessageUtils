@@ -5,15 +5,6 @@ import urllib.request
 
 def download(url : str, counter: int, output_filepath : str = None):
 
-    if counter == 9510:
-        print("\n")
-        print("\n")
-        print("You have exceeded the download limit of Discord.")
-        print("The program will automatically halt for 10 minutes, and resume once the limit is reset. Please be patient.")
-        time.sleep(600)
-        print("\n")
-        print("\n")
-
     filename = url.split('/')[-1].split('?')[0]
 
     if output_filepath is None:
