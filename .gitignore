@@ -1,0 +1,13 @@
+# IDE files
+*.iml
+*.xml
+.idea/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+venv/
+*.egg-info/
